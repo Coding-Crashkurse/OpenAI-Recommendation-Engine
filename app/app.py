@@ -6,6 +6,7 @@ from app.db import User, create_db_and_tables
 from app.routers.ai_router import router as ai_router
 from app.schemas import UserCreate, UserRead, UserUpdate
 from app.users import auth_backend, current_active_user, fastapi_users
+from app.routers.system_router import router as system_router
 
 app = FastAPI()
 
@@ -28,6 +29,7 @@ app.include_router(
     prefix="/users",
 )
 app.include_router(ai_router)
+app.include_router(system_router)
 
 
 @app.get("/authenticated-route")
@@ -39,7 +41,7 @@ async def authenticated_route(user: User = Depends(current_active_user)):
 async def on_startup():
     await create_db_and_tables()
 
-#
+
 # @app.on_event("shutdown")
 # async def on_shutdown():
 #     os.remove("test.db")

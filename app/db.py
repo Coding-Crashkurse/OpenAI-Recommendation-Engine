@@ -2,7 +2,7 @@ from typing import AsyncGenerator
 
 from fastapi import Depends
 from fastapi_users.db import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase
-from sqlalchemy import Column, Enum, String
+from sqlalchemy import Column, Enum, Integer, String
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -17,6 +17,13 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     username = Column(String(100))
     level = Column(Enum(Level))
     interests = Column(String)
+
+
+class MessageModel(Base):
+    __tablename__ = "systemmessage"
+
+    id = Column(Integer, primary_key=True, index=True)
+    message = Column(String(500))
 
 
 engine = create_async_engine(DATABASE_URL)

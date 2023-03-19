@@ -27,3 +27,15 @@ class UserCreate(BaseUserCreate, UserBase):
 
 class UserUpdate(BaseUserUpdate, UserBase):
     pass
+
+
+class SystemMessage(BaseModel):
+    message: str
+
+
+class Message(BaseModel):
+    role: str
+    content: str
+
+class MessageList(BaseModel):
+    messages: list[Message]
